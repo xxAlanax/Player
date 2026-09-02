@@ -1,0 +1,10 @@
+== MEU PLAYER ==
+Tocando agora:
+
+1. Ver biblioteca
+2. Adicionar música à fila
+3. Ver fila
+4. Tocar próxima
+5. Voltar 
+6. Ver histórico
+0. Sair
