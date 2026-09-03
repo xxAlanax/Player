@@ -87,7 +87,6 @@ def ver_historico():
 opcao = -1
 
 while opcao != 0:
-    # Validação
     with open("Constantes.txt", "r", encoding="utf-8") as menu:
         print(menu.readline().strip())
         if tocando_agora == "Nenhuma":
