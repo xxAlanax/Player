@@ -41,39 +41,38 @@ def ver_fila():
 
     print(" ")
 
-def tocar_proxima():
-    global tocando_agora
+def tocar_proxima(tocando_agora):
 
     if fila:
         if tocando_agora != "Nenhuma":
             pilha.append(tocando_agora)
 
-        tocando_agora = fila.pop(0)
+        proxima = fila.pop(0)
         pygame.mixer.music.stop()
-        pygame.mixer.music.load(tocando_agora[1])
+        pygame.mixer.music.load(proxima[1])
         pygame.mixer.music.play()
+        return proxima
 
     else:
         print("A fila de musica está vazia...")
         if tocando_agora != "Nenhuma":
-                pilha.append(tocando_agora)
-                tocando_agora = "Nenhuma"
-                pygame.mixer.music.stop()
-
-    
-
-def voltar():
-    global tocando_agora
+            pilha.append(tocando_agora)
+            pygame.mixer.music.stop()
+            return "Nenhuma"
+                
+def voltar(tocando_agora):
     if pilha:
-        tocando_agora = pilha.pop()
-        pygame.mixer.music.load(tocando_agora[1])
+        anterior = pilha.pop()
+        pygame.mixer.music.load(anterior[1])
         pygame.mixer.music.play()
+        return anterior
+        
 
     else:
         print("O historico está vazio...")
         if tocando_agora != "Nenhuma":
-                tocando_agora = "Nenhuma"
                 pygame.mixer.music.stop()
+                return "Nenhuma"
 
 def ver_historico():
     if pilha:
@@ -88,7 +87,8 @@ def ver_historico():
 opcao = -1
 
 while opcao != 0:
-    with open("Constantes.txt", "r") as menu:
+    # Validação
+    with open("Constantes.txt", "r", encoding="utf-8") as menu:
         print(menu.readline().strip())
         if tocando_agora == "Nenhuma":
             print(menu.readline().strip(), tocando_agora)
@@ -98,24 +98,29 @@ while opcao != 0:
         for linha in menu:
             print(linha.strip())
 
-        opcao = int(input())
+        try:
+            opcao = int(input())
 
-        if opcao == 1:
-            ver_biblioteca()
+            if opcao == 1:
+                ver_biblioteca()
 
-        elif opcao == 2:
-            ver_biblioteca()
-            n = int(input('Digite o número da música:'))
-            adicionar_na_fila(n)
+            elif opcao == 2:
+                ver_biblioteca()
+                n = int(input('Digite o número da música:'))
+                adicionar_na_fila(n)
 
-        elif opcao == 3:
-            ver_fila()
+            elif opcao == 3:
+                ver_fila()
 
-        elif opcao == 4:
-            tocar_proxima()
+            elif opcao == 4:
+                tocando_agora = tocar_proxima(tocando_agora)
 
-        elif opcao == 5:
-            voltar()
+            elif opcao == 5:
+                tocando_agora = voltar(tocando_agora)
 
-        elif opcao == 6:
-            ver_historico()
+            elif opcao == 6:
+                ver_historico()
+                
+        except:
+            opcao = int(input("Digite uma opcão valida:"))
+
