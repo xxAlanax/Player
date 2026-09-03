@@ -21,15 +21,15 @@ def ver_biblioteca():
 
 
 def adicionar_na_fila(musica):
-        with open("Biblioteca.txt", "r", encoding="utf-8") as biblioteca:
-            linhas = biblioteca.readlines()
+    with open("Biblioteca.txt", "r", encoding="utf-8") as biblioteca:
+        linhas = biblioteca.readlines()
             
-            if musica == 0 or musica > len(linhas):
-                print("Número de música invalido")
+        if musica == 0 or musica > len(linhas):
+            print("Número de música invalido")
 
-            else:
-                nome, mp3 = linhas[musica-1].strip().split("; ")
-                fila.append((nome, mp3))
+        else:
+            nome, mp3 = linhas[musica-1].strip().split("; ")
+            fila.append((nome, mp3))
 
 def ver_fila():
     if fila:
@@ -119,5 +119,5 @@ while opcao != 0:
                 ver_historico()
                 
         except:
-            opcao = int(input("Digite uma opcão valida:"))
+            opcao = 0
 
