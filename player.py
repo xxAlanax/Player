@@ -10,10 +10,10 @@ pilha = []
 tocando_agora = "Nenhuma"
 
 def ver_biblioteca():
-    with open("Biblioteca.txt", "r") as biblioteca:
+    with open("Biblioteca.txt", "r", encoding="utf-8") as biblioteca:
         i = 1
         for linha in biblioteca:
-            nome, mp3  = (linha.strip().split(" \ "))
+            nome, mp3  = (linha.strip().split("; "))
             print(i, nome)
             i += 1
 
@@ -21,14 +21,14 @@ def ver_biblioteca():
 
 
 def adicionar_na_fila(musica):
-        with open("Biblioteca.txt", "r") as biblioteca:
+        with open("Biblioteca.txt", "r", encoding="utf-8") as biblioteca:
             linhas = biblioteca.readlines()
             
             if musica == 0 or musica > len(linhas):
                 print("Número de música invalido")
 
             else:
-                nome, mp3 = linhas[musica-1].strip().split(" \ ")
+                nome, mp3 = linhas[musica-1].strip().split("; ")
                 fila.append((nome, mp3))
 
 def ver_fila():
@@ -42,7 +42,6 @@ def ver_fila():
     print(" ")
 
 def tocar_proxima(tocando_agora):
-
     if fila:
         if tocando_agora != "Nenhuma":
             pilha.append(tocando_agora)
@@ -58,7 +57,7 @@ def tocar_proxima(tocando_agora):
         if tocando_agora != "Nenhuma":
             pilha.append(tocando_agora)
             pygame.mixer.music.stop()
-            return "Nenhuma"
+        return "Nenhuma"
                 
 def voltar(tocando_agora):
     if pilha:
@@ -67,12 +66,11 @@ def voltar(tocando_agora):
         pygame.mixer.music.play()
         return anterior
         
-
     else:
         print("O historico está vazio...")
         if tocando_agora != "Nenhuma":
-                pygame.mixer.music.stop()
-                return "Nenhuma"
+            pygame.mixer.music.stop()
+        return "Nenhuma"
 
 def ver_historico():
     if pilha:
